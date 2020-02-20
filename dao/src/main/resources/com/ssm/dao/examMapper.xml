@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.ExamDao">
+
+    <select id="getAllExam" resultType="com.ssm.entity.Exam">
+        select* from exam order by id
+    </select>
+
+    <select id="getAll" resultType="com.ssm.entity.Exam">
+        select *  from exam
+    </select>
+
+    <select id="getById" resultType="com.ssm.entity.Exam">
+        select *  from exam where id=#{id}
+    </select>
+    <delete id="byIdDelete" parameterType="int">
+        delete from exam where id=#{id}
+    </delete>
+
+    <select id="getExamByTeacherId" resultType="com.ssm.entity.Exam">
+select * from exam where gradeid=#{gradeid} and type=1 or clazzid=#{clazzid} and courseid=#{courseid} and type=2
+    </select>
+
+    <select id="getExamByStudent" resultType="com.ssm.entity.Exam">
+      SELECT * FROM exam WHERE (gradeid=#{param1} AND type=1) OR (clazzid=#{param2} AND type=2)
+    </select>
+
+    <insert id="addExam" parameterType="com.ssm.entity.Exam">
+        insert into exam(name, time, remark, type, gradeid,clazzid,courseid)
+        values(#{name},#{time},#{remark},#{type},#{gradeid},#{clazzid},#{courseid})
+    </insert>
+
+
+
+
+   <!--
+
+    <update id="update" parameterType="com.entity.Employee">
+        update employee set
+        salary=#{salary},hiredata=#{hiredata},gender=#{gender},username=#{username},deptid=#{deptid},picture=#{picture}
+        where id=#{id}
+    </update>-->
+</mapper>

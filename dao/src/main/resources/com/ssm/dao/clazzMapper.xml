@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.ClazzDao">
+
+    <select id="getAll" resultType="com.ssm.entity.Clazz">
+        select * from clazz order by id
+    </select>
+    <select id="getAllByGradeid" resultType="com.ssm.entity.Clazz">
+        select * from clazz  where gradeid=#{gradeid}
+    </select>
+    <select id="getById" resultType="com.ssm.entity.Clazz">
+        select * from clazz where id=#{id}
+    </select>
+    <select id="getClazzByName" resultType="com.ssm.entity.Clazz">
+        select * from clazz where name=#{name}
+    </select>
+    <delete id="deleteByClazzId" parameterType="int">
+        delete from clazz where gradeid=#{id}
+    </delete>
+    <insert id="insert" parameterType="com.ssm.entity.Clazz">
+        insert into clazz(name, gradeid)
+        values(#{name},#{gradeid})
+    </insert>
+   <!--
+
+    <update id="update" parameterType="com.entity.Employee">
+        update employee set
+        salary=#{salary},hiredata=#{hiredata},gender=#{gender},username=#{username},deptid=#{deptid},picture=#{picture}
+        where id=#{id}
+    </update>-->
+</mapper>

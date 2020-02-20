@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.EscoreDao">
+
+    <delete id="deleteByCourseId" parameterType="int">
+        delete from escore where courseid=#{id}
+    </delete>
+
+    <select id="boolExam" resultType="int">
+        select count(*) from escore where
+        examid=#{examid} and clazzid=#{clazzid} and studentid=#{studentid} and gradeid=#{gradeid} and courseid=#{courseid}
+    </select>
+
+    <insert id="insert" parameterType="com.ssm.entity.EScore">
+        insert into escore(examid, clazzid, studentid, gradeid, courseid, score)
+        values(#{examid},#{clazzid},#{studentid},#{gradeid},#{courseid},#{score})
+    </insert>
+
+    <select id="getEScoreByTypeOne" resultType="com.ssm.entity.EScore">
+    select * from escore where
+    examid=#{examid} and clazzid=#{clazzid} and studentid=#{studentid} and gradeid=#{gradeid}
+    <if test="courseid!=null">
+        and courseid=#{courseid}
+    </if>
+
+</select>
+
+
+    <!--
+    <update id="update" parameterType="com.entity.Employee">
+        update employee set
+        salary=#{salary},hiredata=#{hiredata},gender=#{gender},username=#{username},deptid=#{deptid},picture=#{picture}
+        where id=#{id}
+    </update>-->
+</mapper>

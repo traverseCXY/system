@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.StudentDao">
+
+    <select id="getStuByPageHelper" resultType="com.ssm.entity.Student">
+        select id,number,name,sex,phone,qq,imgpath,clazzid,gradeid from student limit #{param1},#{param2}
+    </select>
+
+    <select id="getStuByClazzid" resultType="com.ssm.entity.Student">
+        select id,number,name,sex,phone,qq,imgpath,clazzid,gradeid from student where clazzid=#{clazzid}
+    </select>
+
+    <select id="getById" resultType="com.ssm.entity.Student">
+        select id,number,name,sex,phone,qq,imgpath,clazzid,gradeid from student where number=#{number}
+    </select>
+
+    <select id="getStudentByNumber" resultType="com.ssm.entity.Student">
+        select id,number,name,sex,phone,qq,imgpath,clazzid,gradeid from student where number=#{number}
+    </select>
+
+    <select id="getStuByStuClazzid" resultType="com.ssm.entity.Student">
+        select id,number,name,sex,phone,qq,imgpath,clazzid,gradeid from student where clazzid=#{param3} limit #{param1},#{param2}
+    </select>
+
+    <insert id="insert" parameterType="com.ssm.entity.StudentVO" >
+        insert into student(number, name, sex, phone,qq,imgpath,clazzid,gradeid)
+        values(#{number},#{name},#{sex},#{phone},#{qq},#{imgpath},#{clazzid},#{gradeid})
+    </insert>
+    <delete id="delete" parameterType="int">
+        delete from student where id=#{id}
+    </delete>
+    <delete id="deleteByGradeId" parameterType="int">
+        delete from student where gradeid=#{id}
+    </delete>
+    <delete id="deleteByClazzId" parameterType="int">
+        delete from student where clazzid=#{id}
+    </delete>
+    <update id="update" parameterType="com.ssm.entity.Student">
+        update student set
+        name=#{name},sex=#{sex},phone=#{phone},qq=#{qq},clazzid=#{clazzid},gradeid=#{gradeid}
+        <if test="imgpath!=null">
+            ,imgpath=#{imgpath}
+        </if>
+        where number=#{number}
+    </update>
+    <update id="updatePhoto" parameterType="com.ssm.entity.Student">
+        update student set imgpath=#{imgpath} where number=#{number}
+    </update>
+    <select id="count" resultType="int">
+       select count(*) from student
+    </select>
+    <select id="getStudentByExamId" resultType="com.ssm.entity.Student">
+        select * from student where id=#{studentid}
+    </select>
+
+
+</mapper>

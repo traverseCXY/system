@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.GradeCourseDao">
+
+    <insert id="insert" parameterType="com.ssm.entity.GradeCourse">
+        insert into grade_course(gradeid, courseid)
+        values(#{gradeid},#{courseid})
+    </insert>
+
+    <delete id="deleteByCourseId" parameterType="int">
+        delete from grade_course where courseid=#{id}
+    </delete>
+
+</mapper>

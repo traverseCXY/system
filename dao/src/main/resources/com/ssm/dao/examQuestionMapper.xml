@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.ExamQuestionDao">
+
+    <select id="getExamQuestionByExamId" resultType="com.ssm.entity.ExamQuestion">
+        select * from examquestion where examid=#{examid}
+    </select>
+
+    <insert id="insert" parameterType="com.ssm.entity.ExamQuestion">
+        insert into examquestion(examid,questtions, optionA, optionB, optionC,optionD,answer,type)
+        values(#{examid},#{questtions},#{optionA},#{optionB},#{optionC},#{optionD},#{answer},#{type})
+    </insert>
+
+   <!--
+    <delete id="delete" parameterType="int">
+        delete from employee where id=#{id}
+    </delete>
+    <update id="update" parameterType="com.entity.Employee">
+        update employee set
+        salary=#{salary},hiredata=#{hiredata},gender=#{gender},username=#{username},deptid=#{deptid},picture=#{picture}
+        where id=#{id}
+    </update>-->
+</mapper>

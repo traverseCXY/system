@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.ClazzCourseTeacherDao">
+
+
+    <delete id="deleteById" parameterType="int">
+        delete from clazz_course_teacher where teacherid=#{id}
+    </delete>
+
+    <delete id="deleteByCourseId" parameterType="int">
+        delete from clazz_course_teacher where courseid=#{id}
+    </delete>
+
+    <select id="getClazzCourseTeacherByTeacherId" resultMap="CourseItem">
+            SELECT c.name coursename,cct.id cctid, cct.gradeid gradeid, cct.clazzid clazzid,  cct.courseid courseid,  cct.teacherid teacherid,cl.name clazzname,gd.name gradename
+            FROM
+            course c, clazz_course_teacher cct,clazz cl,grade gd
+            WHERE
+             c.id=cct.courseid  and cct.clazzid=cl.id and cct.gradeid=gd.id
+            AND
+            cct.teacherid=#{id}
+    </select>
+
+    <select id="getClazzIdByTeacherId" resultMap="CourseItemTwo">
+        select cct.id id, cct.clazzid clazzid ,cct.gradeid gradeid,cct.courseid courseid from clazz_course_teacher cct ,teacher t
+        where t.id=#{id} and cct.teacherid=#{id}
+    </select>
+
+    <resultMap id="CourseItemTwo" type="com.ssm.entity.CourseItem">
+        <id property="id" column="id" />
+        <result property="courseid" column="courseid"/>
+        <result property="clazzid" column="clazzid"></result>
+        <result property="gradeid" column="gradeid"/>
+    </resultMap>
+
+
+
+    <resultMap id="CourseItem" type="com.ssm.entity.CourseItem">
+        <id property="id" column="name" />
+        <result property="courseid" column="courseid"/>
+        <result property="clazzid" column="clazzid"></result>
+        <result property="gradeid" column="gradeid"/>
+        <collection property="course" ofType="com.ssm.entity.Course">
+            <id property="id" column="courseid" />
+            <result property="name" column="coursename"/>
+        </collection>
+        <collection property="grade" ofType="com.ssm.entity.Grade">
+            <id property="id" column="gradeid" />
+            <result property="name" column="gradename"/>
+        </collection>
+        <collection property="clazz" ofType="com.ssm.entity.Clazz">
+            <id property="id" column="clazzid" />
+            <result property="name" column="clazzname"/>
+        </collection>
+    </resultMap>
+
+    <insert id="insert" parameterType="int">
+        insert into clazz_course_teacher(gradeid, clazzid, courseid, teacherid) values
+        (#{param1},#{param2},#{param3},#{param4})
+    </insert>
+
+    <delete id="deleteByTeacherId" parameterType="int">
+        DELETE FROM clazz_course_teacher WHERE teacherid =#{id}
+    </delete>
+
+
+</mapper>
